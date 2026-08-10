@@ -16,8 +16,8 @@ app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
-      // Allow any localhost origin
-      if (/^http:\/\/localhost:\d+$/.test(origin)) {
+      // Allow any localhost origin or vercel.app subdomain
+      if (/^http:\/\/localhost:\d+$/.test(origin) || origin.endsWith(".vercel.app")) {
         return callback(null, true);
       }
       callback(new Error("Not allowed by CORS"));
