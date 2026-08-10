@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import dns from "dns";
 dotenv.config();
 
+mongoose.set("bufferCommands", false);
+
 const checkDNSReachable = () => {
   return new Promise((resolve) => {
     const resolver = new dns.Resolver();
