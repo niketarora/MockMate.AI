@@ -1,5 +1,7 @@
 import fs from "fs";
-import pdfParse from "pdf-parse";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const pdfParse = require("pdf-parse");
 import { askAi } from "../services/openRouter.service.js";
 import User from "../models/user_model.js";
 import Interview from "../models/interview.model.js";

@@ -1,12 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
-import connectDB from "./config/connectDB.js";
+import connectDB from "../config/connectDB.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import authRouter from "./routes/auth_route.js";
-import userRouter from "./routes/user_route.js";
-import interviewRouter from "./routes/interview.route.js";
-import paymentRouter from "./routes/payment.route.js";
+import authRouter from "../routes/auth_route.js";
+import userRouter from "../routes/user_route.js";
+import interviewRouter from "../routes/interview.route.js";
+import paymentRouter from "../routes/payment.route.js";
 
 dotenv.config();
 
@@ -43,6 +43,11 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/interview", interviewRouter);
 app.use("/api/payment", paymentRouter);
+
+// Add a root route for testing and to prevent 404s when opening the backend URL directly
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "MockMate.AI API is running successfully!" });
+});
 
 const PORT = process.env.PORT || 8000;
 
