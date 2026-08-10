@@ -1,5 +1,5 @@
 import fs from "fs";
-import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
+import pdfParse from "pdf-parse";
 import { askAi } from "../services/openRouter.service.js";
 import User from "../models/user_model.js";
 import Interview from "../models/interview.model.js";
@@ -30,21 +30,9 @@ export const analyzeResume = async (req, res) => {
     }
     const filepath = req.file.path;
     const fileBuffer = await fs.promises.readFile(filepath);
-    const uint8Array = new Uint8Array(fileBuffer);
 
-    const pdf = await pdfjsLib.getDocument({ data: uint8Array }).promise;
-
-    let resumeText = "";
-
-    // Extract text from all pages
-    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      const page = await pdf.getPage(pageNum);
-      const content = await page.getTextContent();
-      const pageText = content.items.map((item) => item.str).join(" ");
-      resumeText += pageText + " ";
-    }
-
-    resumeText = resumeText.replace(/\s+/g, " ").trim();
+    const data = await pdfParse(fileBuffer);
+    let resumeText = data.text.replace(/\s+/g, " ").trim();
 
     const messages = [
       {
