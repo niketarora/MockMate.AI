@@ -52,7 +52,7 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 8000;
 
 // Only listen locally, Vercel will handle listening in production
-if (process.env.NODE_ENV !== "production") {
+if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });
