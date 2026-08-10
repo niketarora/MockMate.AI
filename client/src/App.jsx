@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
 import { useDispatch } from "react-redux";
-import { setUserData } from "./redux/userslice";
+import { setUserData } from "./redux/userSlice.js";
 import InterviewPage from "./pages/InterviewPage";
 import InterviewHistory from './pages/InterviewHistory'
 import Pricing from './pages/Pricing'

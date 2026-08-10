@@ -14,7 +14,14 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      // Allow any localhost origin
+      if (/^http:\/\/localhost:\d+$/.test(origin)) {
+        return callback(null, true);
+      }
+      callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   }),
 );
@@ -22,24 +29,28 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+// Connect to DB for each request (required for Serverless cold-starts)
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/interview", interviewRouter);
 app.use("/api/payment", paymentRouter);
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 8000;
 
-const startServer = async () => {
-  try {
-    await connectDB();
+// Only listen locally, Vercel will handle listening in production
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}
 
-    app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.error("Failed to connect to MongoDB:", error);
-    process.exit(1);
-  }
-};
-
-startServer();
+export default app;

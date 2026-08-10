@@ -1,161 +1,158 @@
 # 🚀 MockMate.AI
 
-> Your Personal AI Interview Companion
-
-MockMate.AI is an AI-powered mock interview platform that helps students and professionals prepare for technical interviews through realistic AI-driven conversations, instant feedback, and detailed performance analysis.
-
----
-
-## ✨ Features
-
-- 🤖 AI-powered mock interviews
-- 🎙️ Voice-based interview interaction
-- 📄 Resume upload and analysis
-- 📊 Detailed interview performance report
-- 💡 Personalized improvement suggestions
-- 🔐 Secure Google Authentication
-- 💳 Razorpay Payment Integration
-- 📱 Responsive Modern UI
+> **Your Personal AI-Powered Mock Interview Companion**
+>
+> MockMate.AI helps job seekers, students, and professionals ace technical interviews through realistic AI-driven conversations, instant evaluations, and detailed visual performance metrics.
 
 ---
 
-## 🛠️ Tech Stack
+## 🌟 Key Features
 
-### Frontend
-
-- React
-- Vite
-- Tailwind CSS
-- Axios
-
-### Backend
-
-- Node.js
-- Express.js
-- MongoDB
-- JWT Authentication
-
-### AI
-
-- Gemini API
-- AI Response Evaluation
-
-### Payment
-
-- Razorpay
+*   **🤖 AI-Powered Interviewers:** Experience interactive mock interviews tailored to your target role and experience.
+*   **🎙️ Interactive Voice & Text:** Choose between speech-to-text input or typing to converse naturally with the AI.
+*   **📄 Resume-Tailored Questions:** Upload your resume to receive highly customized, context-aware technical questions.
+*   **📊 Detailed Performance Analytics:** Receive instant visual report cards featuring:
+    *   Overall readiness scores.
+    *   Metrics on **Confidence**, **Communication**, and **Correctness**.
+    *   Question-by-question breakdowns with model answers.
+*   **💳 Credits System:** Built-in Razorpay integration to purchase mock interview packages.
+*   **🔐 Secure Google Auth:** Seamless and secure authentication using Firebase Google Sign-In.
+*   **📱 Glassmorphic UI:** A premium, fully responsive modern user interface with smooth transitions and micro-animations.
 
 ---
 
 ## 📂 Project Structure
 
-```
-MockMate.AI
-│
-├── client/
+```text
+MockMate.AI/
+├── client/                 # React Frontend (Vite)
 │   ├── src/
-│   ├── components/
-│   └── pages/
-│
-├── server/
-│   ├── controllers/
-│   ├── routes/
-│   ├── models/
-│   ├── middlewares/
-│   └── config/
-│
-└── README.md
+│   │   ├── components/     # UI Components (e.g. Step3Report)
+│   │   ├── pages/          # Layout Pages (Home, InterviewPage, Auth)
+│   │   ├── redux/          # Global State (User Slice)
+│   │   └── utils/          # Firebase, config
+│   └── package.json
+└── server/                 # Express Backend (Node.js)
+    ├── config/             # DB & Token utilities
+    ├── controllers/        # Route Handlers
+    ├── middleware/         # Auth validation
+    ├── models/             # Mongoose schemas
+    ├── routes/             # API Endpoints
+    ├── vercel.json         # Vercel Serverless Config
+    └── package.json
 ```
 
 ---
 
-## 🚀 Installation
+## 🛠️ Local Installation & Setup
 
-Clone the repository
+### Prerequisites
+
+*   Node.js (v18+)
+*   MongoDB Instance (Local or Cloud Atlas)
+*   Firebase Project (for Google Auth)
+*   Razorpay Developer Account
+
+### 1. Clone the Project
 
 ```bash
-git clone https://github.com/niketarora/mockmate-ai.git
-```
-
-Move into the project
-
-```bash
+git clone https://github.com/<your-username>/mockmate-ai.git
 cd mockmate-ai
 ```
 
-Install dependencies
+### 2. Configure Environment Variables
 
-### Client
-
-```bash
-cd client
-npm install
-```
-
-### Server
-
-```bash
-cd ../server
-npm install
-```
-
----
-
-## Environment Variables
-
-Create a `.env` file inside the server folder.
-
+#### Backend (`server/.env`)
+Create a `.env` file in the `server` directory:
 ```env
-MONGO_URI=
-
-JWT_SECRET=
-
-GEMINI_API_KEY=
-
-RAZORPAY_KEY_ID=
-
-RAZORPAY_SECRET=
-
-CLIENT_URL=http://localhost:5173
+PORT=8000
+MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/mockmate
+JWT_SECRET=your_jwt_secret_key_here
+OPENROUTER_API_KEY=your_openrouter_or_gemini_api_key
+RAZORPAY_KEY_ID=your_razorpay_key_id
+RAZORPAY_KEY_SECRET=your_razorpay_secret
 ```
 
----
+#### Frontend (`client/.env`)
+Create a `.env` file in the `client` directory:
+```env
+VITE_FIREBASE_APIKEY=your_firebase_api_key
+VITE_RAZORPAY_KEY_ID=your_razorpay_key_id
+```
 
-## Run the Project
+### 3. Install & Start
 
-Backend
-
+#### Start Backend:
 ```bash
 cd server
-npm run server
+npm install
+npm run dev
 ```
 
-Frontend
-
+#### Start Frontend:
 ```bash
-cd client
+cd ../client
+npm install
 npm run dev
 ```
 
 ---
 
-## Future Improvements
+## 🐙 How to Push to GitHub
 
-- Interview history
-- AI voice interviewer
-- Coding interview mode
-- Company-specific interview rounds
-- ATS Resume Score
-- Leaderboard
-- Dark Mode
+Follow these steps to initialize and push your project to a new repository on GitHub:
+
+1.  **Create a Repository:** Go to [GitHub](https://github.com) and create a new **empty repository** named `mockmate-ai`.
+2.  **Initialize Git & Commit:** Open your terminal in the root directory (`mockmate-ai/`):
+    ```bash
+    git init
+    git add .
+    git commit -m "feat: complete initial project setup with serverless vercel support"
+    ```
+3.  **Link to GitHub:** Replace `<your-username>` with your GitHub username:
+    ```bash
+    git branch -M main
+    git remote add origin https://github.com/<your-username>/mockmate-ai.git
+    git push -u origin main
+    ```
 
 ---
 
-## Author
+## ⚡ Deployment to Vercel
 
-**Niket Arora**
+We can deploy both the **Frontend** and **Backend** to Vercel.
 
-GitHub: https://github.com/niketarora
+### Step 1: Deploy Backend (Server)
 
----
+1.  Sign in to [Vercel](https://vercel.com).
+2.  Click **Add New** > **Project** and select your GitHub repository.
+3.  Set the **Root Directory** to `server`.
+4.  Expand **Environment Variables** and add all variables from `server/.env`:
+    *   `MONGODB_URI`
+    *   `JWT_SECRET`
+    *   `OPENROUTER_API_KEY`
+    *   `RAZORPAY_KEY_ID`
+    *   `RAZORPAY_KEY_SECRET`
+    *   `NODE_ENV=production`
+5.  Click **Deploy**. Once finished, copy your server's Vercel deployment URL (e.g. `https://mockmate-api.vercel.app`).
 
-⭐ If you found this project useful, consider giving it a star.
+### Step 2: Deploy Frontend (Client)
+
+Before deploying the frontend, update the backend API endpoint to point to your live Vercel backend:
+1.  Open `client/src/App.jsx` and change:
+    ```javascript
+    // Change this to your live backend URL
+    export const ServerUrl = "https://mockmate-api.vercel.app";
+    ```
+2.  Commit and push this change to GitHub:
+    ```bash
+    git add client/src/App.jsx
+    git commit -m "config: update api url for production"
+    git push
+    ```
+3.  In Vercel, click **Add New** > **Project** and import the same repository.
+4.  Set the **Root Directory** to `client`.
+5.  Expand **Environment Variables** and add all variables from `client/.env`:
+    *   `VITE_FIREBASE_APIKEY`
+    *   `VITE_RAZORPAY_KEY_ID`
+6.  Click **Deploy**. Your frontend is now live!
