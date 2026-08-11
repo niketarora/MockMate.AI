@@ -11,7 +11,9 @@ import InterviewHistory from './pages/InterviewHistory'
 import Pricing from './pages/Pricing'
 import InterviewReport from './pages/InterviewReport'
 
-export const ServerUrl = "http://localhost:8000";
+export const ServerUrl = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  ? "http://localhost:8000"
+  : "https://mock-mate-al-gold.vercel.app";
 
 function App() {
   const dispatch = useDispatch();
