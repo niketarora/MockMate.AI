@@ -1,4 +1,4 @@
-import fs from "fs";
+// fs import removed to support fully in-memory upload handling
 
 // Polyfill browser globals to prevent pdf-parse from crashing in Node.js serverless runtimes
 if (typeof global.DOMMatrix === "undefined") {
@@ -42,8 +42,7 @@ export const analyzeResume = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "Resume required" });
     }
-    const filepath = req.file.path;
-    const fileBuffer = await fs.promises.readFile(filepath);
+    const fileBuffer = req.file.buffer;
 
     const data = await pdfParse(fileBuffer);
     let resumeText = data.text.replace(/\s+/g, " ").trim();
